@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 body {
   background-image: radial-gradient(
     circle at 50% 90%,
