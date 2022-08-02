@@ -12,6 +12,8 @@ module.exports = {
         "tkd1": "var(--tkd1)",
         "tkd2": "var(--tkd2)",
         "activecolor": "var(--active-color)",
+        "textcolor": "var(--text-color)",
+        "backgroundcolor": "var(--background-color)",
       },
       transitionTimingFunction: {
         'tkdanimation1': 'cubic-bezier(0.935, 0, 0.34, 1.33)',
