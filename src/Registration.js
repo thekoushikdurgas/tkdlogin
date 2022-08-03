@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import Alert from "./Alert";
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 export default function Register() {
   const host = "https://thekoushikdurgasserver.herokuapp.com";
@@ -52,28 +53,26 @@ export default function Register() {
       else if (!validateEmail(email)) { setalertactive([true, 'Warning', 'Invalid Email']); }
       else if (countryname === "") { setalertactive([true, 'Warning', 'Country is mandatory']); }
       else if (phoneno === "") { setalertactive([true, 'Warning', 'Phone no. is mandatory']); }
+      else if (username === "") { setalertactive([true, 'Warning', 'Username is mandatory']); }
       else { slide = true; }
     } else if (a === 2) {
-      if (username === "") { setalertactive([true, 'Warning', 'Username is mandatory']); }
-      else if (password === "") { setalertactive([true, 'Warning', 'Password is mandatory']); }
+      if (password === "") { setalertactive([true, 'Warning', 'Password is mandatory']); }
       else if (password !== password1) { setalertactive([true, 'Warning', 'Password and Confirm Password not same']); }
       else if (!termscondition) { setalertactive([true, 'Warning', 'Check Terms and Condition']); }
       else {
         const response = await fetch(`${host}/api/auth/createuser`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', },
-          body: JSON.stringify({ name, username, phone: phoneex + phoneno, picimg: 'https://raw.githubusercontent.com/thekoushikdurgas/TKDstroage/main/gender/' + gender + '.png', country: countryname, dof: day + '/' + month + '/' + year, gender, email, password })
+          body: JSON.stringify({ name, username, phone: phoneex + phoneno, picimg: '//koushikchandrasaha.thekoushikdurgas.in/gender/' + gender + '.png', country: countryname, dof: day + '/' + month + '/' + year, gender, email, password })
         });
         const json = await response.json();
-        if (json['success']) {
-          localStorage.setItem('auth-token', json['authtoken']);
-          localStorage.setItem('user-img', json['picimg']);
-          localStorage.setItem('user-name', json['name']);
-          localStorage.setItem('user-username', json['username']);
+        console.log(json);
+        if (json.success) {
+          localStorage.setItem('userauthtoken', json.authtoken);
           setalertactive([true, 'Success', 'Successfully Resgister in']);
-          navigate("/", { replace: true });
+          window.location.assign(Cookies.get('priviousurl') || 'http://thekoushikdurgas.in/');
         } else {
-          setalertactive([true, 'Warning', json]);
+          setalertactive([true, 'Warning',JSON.stringify(json.errors)]);
         }
       }
     }

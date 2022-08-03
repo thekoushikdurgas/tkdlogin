@@ -19,10 +19,7 @@ export default function Login() {
         const response = await fetch(`${host}/api/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify({ email, password }) });
         const json = await response.json();
         if (json['success']) {
-            Cookies.set('auth-token', json['authtoken'], { path: '', domain: '.thekoushikdurgas.in' });
-            Cookies.set('user-img', json['picimg'], { path: '', domain: '.thekoushikdurgas.in' });
-            Cookies.set('user-name', json['name'], { path: '', domain: '.thekoushikdurgas.in' });
-            Cookies.set('user-username', json['username'], { path: '', domain: '.thekoushikdurgas.in' });
+            localStorage.setItem('userauthtoken', json.authtoken);
         }
         return json['success'];
     }
@@ -36,7 +33,7 @@ export default function Login() {
         else {
             const chatloginauth = await chatlogin(email, password);
             if (chatloginauth) {
-                window.location.assign(Cookies.get('priviousurl'));
+                window.location.assign(Cookies.get('priviousurl') || 'http://thekoushikdurgas.in/');
                 setalertactive([true, 'Success', 'Successfully login in']);
             } else {
                 setalertactive([true, 'Warning', 'Pl write correct deatails']);
