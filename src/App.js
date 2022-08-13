@@ -26,7 +26,7 @@ export default function TKD() {
           <Route path="*" element={<Navigate to="/404" />} />
         </Routes>
       </Router>
-      <div className="absolute top-0 right-0 z-[1]"><Fullscreen /></div>
+      <div className="absolute top-0 right-0 z-[1] hidden md:block"><Fullscreen /></div>
     </>
   )
 }

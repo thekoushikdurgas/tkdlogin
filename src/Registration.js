@@ -69,11 +69,17 @@ export default function Register() {
         const json = await response.json();
         console.log(json);
         if (json.success) {
-          localStorage.setItem('userauthtoken', json.authtoken);
+          Cookies.set('userauthtoken', json.authtoken, { path: '', domain: '.thekoushikdurgas.in' });
+          Cookies.set('useremail', json.email, { path: '', domain: '.thekoushikdurgas.in' });
           setalertactive([true, 'Success', 'Successfully Resgister in']);
           window.location.assign(Cookies.get('priviousurl') || 'http://thekoushikdurgas.in/');
         } else {
-          setalertactive([true, 'Warning',JSON.stringify(json.errors)]);
+          if(json.errors[0].msg){
+            setalertactive([true, 'Warning', json.errors[0].msg]);
+          }
+          else{
+            setalertactive([true, 'Warning', json.errors]);
+          }
         }
       }
     }
@@ -126,23 +132,31 @@ export default function Register() {
   return (
     <>
       <Alert alertactive={alertactive} />
-      <div className="lurcard md:w-[60%] w-full h-[auto] register flex gap-2 relative flex-col animate-[0.7s_ease_0s_1_normal_none_running_zoomin] select-none md:rounded-[1vw] rounded-[10px] bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] font-['Acme'] text-[20px] md:text-[2vw]">
+      <div className="md:w-[60%] w-full md:h-[auto] h-[100vh] register flex gap-2 relative flex-col animate-[0.7s_ease_0s_1_normal_none_running_zoomin] select-none md:rounded-[1vw] rounded-[0] bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] font-['Acme'] text-[20px] md:text-[2vw]">
         <p className='sticky top-[0] w-fit rounded-[0_0_10px_10px] md:rounded-[0_0_1vw_1vw] px-[10px] md:px-[1vw] z-[200] m-[0_auto] bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-t-0 border-[#ffffff80] backdrop-blur-[5px]'>Create an Account!</p>
         <div className="w-full text-center">
           <div className="w-full overflow-hidden">
             <div className="flex w-[200%]">
-              <div className="w-[50%] ease-in-out duration-[0.3s] transition-[margin-left] md:p-[2vh_2vw]" style={{ marginLeft: `-${slidePage * 25 >= 75 ? 75 : slidePage * 50}%` }}>
+              <div className="w-[50%] ease-in-out duration-[0.3s] transition-[margin-left] md:p-[0_2vw]" style={{ marginLeft: `-${slidePage * 25 >= 75 ? 75 : slidePage * 50}%` }}>
                 <div className="grid gap-5">
                   <div className="md:w-full w-[95%] md:h-[7vh] h-[45px] relative flex items-center justify-around m-auto">
                     <input type="text" id="name" name="name" value={name} placeholder="Name eg. Koushik" autoComplete="off" required className="h-full w-full bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] rounded-[10px] md:rounded-[1vw] md:p-[1vh_1vw] p-[0.375rem_0.75rem]" onChange={(event) => { setname(event.target.value); setusername(event.target.value.replace(' ', '') + '123'); }} />
                   </div>
-                  <div className="flex gap-5 m-auto">
+                  <div className="flex flex-wrap gap-1 m-auto">
                     <input type="radio" className='fixed w-0 opacity-0' name="genderre" id="male" value="male" onChange={() => { setgender('male') }} checked={gender === 'male' ? true : false} />
-                    <label htmlFor="male" className={`md:p-[1vh_1vw] p-[7px] text-tkd2 bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] rounded-[10px] md:rounded-[1vw] cursor-pointer flex items-center justify-center gap-2${gender === 'male' ? ' bg-white text-tkd2' : ''}`}><i className="fad fa-male" /><span>male</span></label>
+                    <label htmlFor="male" className={`md:p-[1vh_1vw] p-[7px] text-tkd2 bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] rounded-[10px] md:rounded-[1vw] cursor-pointer flex items-center justify-center gap-2${gender === 'male' ? ' bg-white text-tkd2' : ''}`}><i className="fad fa-male" /><span>Male</span></label>
                     <input type="radio" className='fixed w-0 opacity-0' name="genderre" id="female" value="female" onChange={() => { setgender('female') }} checked={gender === 'female' ? true : false} />
-                    <label htmlFor="female" className={`md:p-[1vh_1vw] p-[7px] text-tkd2 bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] rounded-[10px] md:rounded-[1vw] cursor-pointer flex items-center justify-center gap-2${gender === 'female' ? ' bg-white text-tkd2' : ''}`}><i className="fad fa-female" /><span>female</span></label>
+                    <label htmlFor="female" className={`md:p-[1vh_1vw] p-[7px] text-tkd2 bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] rounded-[10px] md:rounded-[1vw] cursor-pointer flex items-center justify-center gap-2${gender === 'female' ? ' bg-white text-tkd2' : ''}`}><i className="fad fa-female" /><span>Female</span></label>
+                    {/* <input type="radio" className='fixed w-0 opacity-0' name="genderre" id="transgender" value="transgender" onChange={() => { setgender('transgender') }} checked={gender === 'transgender' ? true : false} /> */}
+                    {/* <label htmlFor="transgender" className={`md:p-[1vh_1vw] p-[7px] text-tkd2 bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] rounded-[10px] md:rounded-[1vw] cursor-pointer flex items-center justify-center gap-2${gender === 'transgender' ? ' bg-white text-tkd2' : ''}`}><i className="tkd5-transgender" /><span>Transgender</span></label> */}
+                    {/* <input type="radio" className='fixed w-0 opacity-0' name="genderre" id="intersex" value="intersex" onChange={() => { setgender('intersex') }} checked={gender === 'intersex' ? true : false} /> */}
+                    {/* <label htmlFor="intersex" className={`md:p-[1vh_1vw] p-[7px] text-tkd2 bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] rounded-[10px] md:rounded-[1vw] cursor-pointer flex items-center justify-center gap-2${gender === 'intersex' ? ' bg-white text-tkd2' : ''}`}><i className="tkd5-sexual_reproductive_health" /><span>Intersex</span></label> */}
+                    {/* <input type="radio" className='fixed w-0 opacity-0' name="genderre" id="nonbinary" value="nonbinary" onChange={() => { setgender('nonbinary') }} checked={gender === 'nonbinary' ? true : false} /> */}
+                    {/* <label htmlFor="nonbinary" className={`md:p-[1vh_1vw] p-[7px] text-tkd2 bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] rounded-[10px] md:rounded-[1vw] cursor-pointer flex items-center justify-center gap-2${gender === 'nonbinary' ? ' bg-white text-tkd2' : ''}`}><i className="tkd3-umbrella" /><span>Non Binary</span></label> */}
+                    {/* <input type="radio" className='fixed w-0 opacity-0' name="genderre" id="nottosay" value="nottosay" onChange={() => { setgender('nottosay') }} checked={gender === 'nottosay' ? true : false} /> */}
+                    {/* <label htmlFor="nottosay" className={`md:p-[1vh_1vw] p-[7px] text-tkd2 bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] rounded-[10px] md:rounded-[1vw] cursor-pointer flex items-center justify-center gap-2${gender === 'nottosay' ? ' bg-white text-tkd2' : ''}`}><i className="tkd3-block" /><span>Prefer not to say</span></label> */}
                     <input type="radio" className='fixed w-0 opacity-0' name="genderre" id="others" value="others" onChange={() => { setgender('others') }} checked={gender === 'others' ? true : false} />
-                    <label htmlFor="others" className={`md:p-[1vh_1vw] p-[7px] text-tkd2 bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] rounded-[10px] md:rounded-[1vw] cursor-pointer flex items-center justify-center gap-2${gender === 'others' ? ' bg-white text-tkd2' : ''}`}><i className="fad fa-transgender" /><span>others</span></label>
+                    <label htmlFor="others" className={`md:p-[1vh_1vw] p-[7px] text-tkd2 bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] rounded-[10px] md:rounded-[1vw] cursor-pointer flex items-center justify-center gap-2${gender === 'others' ? ' bg-white text-tkd2' : ''}`}><i className="fad fa-transgender" /><span>Others</span></label>
                   </div>
                   <div className="md:w-full w-[95%] md:h-[7vh] h-[45px] relative flex items-center justify-around m-auto">
                     <input type="text" id="reemail" name="reemail" value={email} placeholder="Email Address eg. example@gmail.com" autoComplete="off" required className="h-full w-full bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] rounded-[10px] md:rounded-[1vw] md:p-[1vh_1vw] p-[0.375rem_0.75rem]" onChange={(event) => { setemail(event.target.value) }} />
@@ -164,8 +178,8 @@ export default function Register() {
                   <div className="md:w-full w-[95%] md:h-[7vh] h-[45px] relative flex items-center justify-around m-auto">
                     <input type="text" name="userna" id="userna" autoComplete="off" placeholder="Username eg. ZackGilkes" required className="h-full w-full bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] rounded-[10px] md:rounded-[1vw] md:p-[1vh_1vw] p-[0.375rem_0.75rem]" value={username} onChange={(event) => { setusername(event.target.value) }} />
                   </div>
-                  <div className="md:w-full w-[95%] md:h-[7vh] h-[45px] relative flex items-center justify-around m-auto overflow-hidden">
-                    <button className="active:scale-[0.9] tracking-[1px] uppercase w-fit xl:p-[2vh_2vw] p-[15px_30px] bg-backgroundcolor md:rounded-[2vw] rounded-[20px] shadow-[inset_5px_5px_15px_#96969680,inset_-5px_-5px_15px_#00000080,3px_3px_5px_#000000b3] leading-[0]" onClick={(event) => { submitbutton(event, 1) }}>Next</button>
+                  <div className="md:w-full w-[95%] md:h-[7vh] h-[45px] relative flex items-center justify-around m-auto">
+                    <button className="active:scale-[0.9] tracking-[1px] uppercase w-fit xl:p-[2vh_2vw] p-[0_30px] bg-backgroundcolor md:rounded-[2vw] rounded-[20px] shadow-[inset_5px_5px_15px_#96969680,inset_-5px_-5px_15px_#00000080,3px_3px_5px_#000000b3]" onClick={(event) => { submitbutton(event, 1) }}><i className="tkd3-next3"></i></button>
                   </div>
                 </div>
               </div>
@@ -224,10 +238,10 @@ export default function Register() {
                 </div>
                 <div className="md:w-full w-[95%] md:h-[7vh] h-[45px] relative flex items-center justify-around m-auto" style={{ margin: '6px 0 0' }}>
                   <div className="md:w-full w-[95%] md:h-[7vh] h-[45px] relative flex items-center justify-around m-auto">
-                    <button className="active:scale-[0.9] tracking-[1px] uppercase w-fit xl:p-[2vh_2vw] p-[15px_30px] bg-backgroundcolor md:rounded-[2vw] rounded-[20px] shadow-[inset_5px_5px_15px_#96969680,inset_-5px_-5px_15px_#00000080,3px_3px_5px_#000000b3] leading-[0]" onClick={(event) => { event.preventDefault(); setslidePage(0) }}>Previous</button>
+                    <button className="active:scale-[0.9] tracking-[1px] uppercase w-fit xl:p-[2vh_2vw] p-[0_30px] bg-backgroundcolor md:rounded-[2vw] rounded-[20px] shadow-[inset_5px_5px_15px_#96969680,inset_-5px_-5px_15px_#00000080,3px_3px_5px_#000000b3]" onClick={(event) => { event.preventDefault(); setslidePage(0) }}><div style={{ transform: `rotateY(180deg)` }}><i className="tkd3-next3"></i></div></button>
                   </div>
                   <div className="md:w-full w-[95%] md:h-[7vh] h-[45px] relative flex items-center justify-around m-auto">
-                    <button className="active:scale-[0.9] tracking-[1px] uppercase w-fit xl:p-[2vh_2vw] p-[15px_30px] bg-backgroundcolor md:rounded-[2vw] rounded-[20px] shadow-[inset_5px_5px_15px_#96969680,inset_-5px_-5px_15px_#00000080,3px_3px_5px_#000000b3] leading-[0]" onClick={(event) => { submitbutton(event, 2) }}>Registration</button>
+                    <button className="active:scale-[0.9] tracking-[1px] uppercase w-fit xl:p-[2vh_2vw] p-[0_30px] bg-backgroundcolor md:rounded-[2vw] rounded-[20px] shadow-[inset_5px_5px_15px_#96969680,inset_-5px_-5px_15px_#00000080,3px_3px_5px_#000000b3]" onClick={(event) => { submitbutton(event, 2) }}>Sign Up</button>
                   </div>
                 </div>
               </div>

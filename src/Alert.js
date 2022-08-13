@@ -18,7 +18,7 @@ export default function Alert({alertactive}) {
   }, [alertactive]);
   if (alertactive[0]) {
     return (
-      <div className={`fixed top-[25px] right-[25px] z-[10000] overflow-hidden md:rounded-[0.5vw] rounded-[5px] md:p-[1vh_2vw] p-[15px] bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] translate-x-[200%] ${toast ? "translate-x-[0]" : ""}`}>
+      <div className={`fixed md:top-[25px] top-[0] md:right-[25px] right-[0] z-[10000] overflow-hidden md:rounded-[0.5vw] rounded-[5px] md:p-[1vh_2vw] p-[15px] bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] translate-x-[200%] ${toast ? "translate-x-[0]" : ""}`}>
         <div className="flex items-center gap-5">
           <i className={`${alerts[alertactive[1]]['icon']} md:text-[3vw] text-[30px]`} style={{color:alerts[alertactive[1]]['class']}}></i>
           <div className="flex flex-col md:text-[1.5vw]" style={{color:alerts[alertactive[1]]['class']}}>

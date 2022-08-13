@@ -19,7 +19,8 @@ export default function Login() {
         const response = await fetch(`${host}/api/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify({ email, password }) });
         const json = await response.json();
         if (json['success']) {
-            localStorage.setItem('userauthtoken', json.authtoken);
+            Cookies.set('userauthtoken', json.authtoken, { path: '', domain: '.thekoushikdurgas.in' });
+            Cookies.set('useremail', json.email, { path: '', domain: '.thekoushikdurgas.in' });
         }
         return json['success'];
     }
@@ -50,7 +51,7 @@ export default function Login() {
     return (
         <>
             <Alert alertactive={alertactive} />
-            <div className="lurcard login flex relative flex-col animate-[0.7s_ease_0s_1_normal_none_running_zoomin] select-none md:rounded-[1vw] rounded-[10px] bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] font-['Acme'] text-[20px] md:text-[2vw]">
+            <div className="flex relative flex-col animate-[0.7s_ease_0s_1_normal_none_running_zoomin] select-none md:rounded-[1vw] rounded-[10px] bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] font-['Acme'] text-[20px] md:text-[2vw]">
                 <p className='sticky top-[0] w-fit rounded-[0_0_10px_10px] md:rounded-[0_0_1vw_1vw] px-[10px] md:px-[1vw] z-[200] m-[0_auto] bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-t-0 border-[#ffffff80] backdrop-blur-[5px]'>Welcome Back!</p>
                 <div className="md:p-[1vh_1vw] p-[21px_14px] grid gap-5">
                     <div className="md:w-full w-[95%] md:h-[7vh] h-[45px] relative flex items-center justify-around">

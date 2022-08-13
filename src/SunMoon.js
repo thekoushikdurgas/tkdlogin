@@ -77,7 +77,7 @@ export default function SunMoon() {
         <div className="absolute overflow-hidden m-[0_auto] z-[12] w-[25vmin] h-[25vmin] top-[calc(50%-12.5vmin)] right-[calc((50%-12.5vmin)_-_-91.1315%)]" style={{ borderRadius: lsborderradius }}></div>
         <div className="relative shadow-[#4b326480_0_0_6.25vmin_0.25vmin_inset] overflow-hidden m-[0_auto] z-[11] w-[25vmin] h-[25vmin] animate-[move-map_30s_infinite_linear] after:content-[''] after:absolute after:w-full after:h-full after:rounded-[100%] after:top-0 after:left-0 after:bg-[radial-gradient(circle_at_50%_30%,#09090700,#00000033_50%,#000_100%)]" style={{ borderRadius: lsborderradius,background: `url("http://koushikchandrasaha.thekoushikdurgas.in/img/moonsurface.jpg") repeat-x`,transformStyle: `preserve-3d`,backgroundSize: `auto 100%` }}></div>
       </div>
-      <div className="fixed z-[10000] top-0 left-0">
+      <div className="fixed z-[10000] top-0 left-0 hidden md:block">
         <label>
           <input className="toggle-checkbox absolute opacity-0 cursor-pointer w-0 h-0" type="checkbox" checked={daynight} onChange={handleOnChange} />
           <div className={`toggle-slot relative h-[3em] w-[3em] md:h-[4vw] md:w-[4vw] border-2 ${daynight?"bg-[#374151] border-white":"bg-[#f5eb42] border-[#b89000]"} rounded-[0_50%_50%_50%] duration-250 shadow-[0_0_11px_0_#2c0101,inset_0_0_12px_0_#2c0101]`}>
