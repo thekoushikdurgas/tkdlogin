@@ -60,6 +60,7 @@ export default function Register() {
       else if (password !== password1) { setalertactive([true, 'Warning', 'Password and Confirm Password not same']); }
       else if (!termscondition) { setalertactive([true, 'Warning', 'Check Terms and Condition']); }
       else {
+        console.log({ name, username, phone: phoneex + phoneno, picimg: '//koushikchandrasaha.thekoushikdurgas.in/gender/' + gender + '.png', country: countryname, dof: d, gender, email, password })
         const d = new Date(year + '-' + month + '-' + day);
         const response = await fetch(`${host}/api/auth/createuser`, {
           method: 'POST',
