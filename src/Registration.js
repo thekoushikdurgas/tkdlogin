@@ -180,7 +180,7 @@ export default function Register() {
                     <input type="text" name="userna" id="userna" autoComplete="off" placeholder="Username eg. ZackGilkes" required className="h-full w-full bg-[#ffffff1a] shadow-[0_20px_50px_#00000026] border border-[#ffffff80] backdrop-blur-[5px] rounded-[10px] md:rounded-[1vw] md:p-[1vh_1vw] p-[0.375rem_0.75rem]" value={username} onChange={(event) => { setusername(event.target.value) }} />
                   </div>
                   <div className="md:w-full w-[95%] md:h-[7vh] h-[45px] relative flex items-center justify-around m-auto">
-                    <button className="active:scale-[0.9] tracking-[1px] uppercase w-fit xl:p-[2vh_2vw] p-[0_30px] bg-backgroundcolor md:rounded-[2vw] rounded-[20px] shadow-[inset_5px_5px_15px_#96969680,inset_-5px_-5px_15px_#00000080,3px_3px_5px_#000000b3]" onClick={(event) => { submitbutton(event, 1) }}><i className="tkd3-next3"></i></button>
+                    <button className="active:scale-[0.9] tracking-[1px] uppercase w-fit xl:p-[0_2vw] p-[0_30px] bg-backgroundcolor md:rounded-[2vw] rounded-[20px] shadow-[inset_5px_5px_15px_#96969680,inset_-5px_-5px_15px_#00000080,3px_3px_5px_#000000b3]" onClick={(event) => { submitbutton(event, 1) }}><i className="tkd3-next3"></i></button>
                   </div>
                 </div>
               </div>
