@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 
 export default function Register() {
-  const host = "https://thekoushikdurgasserver.herokuapp.com";
+  const host = "https://thekoushikdurgasserver.onrender.com";
   const navigate = useNavigate();
   const [country, setcountry] = React.useState([]);
   const getcountry = async () => {
@@ -60,20 +60,20 @@ export default function Register() {
       else if (password !== password1) { setalertactive([true, 'Warning', 'Password and Confirm Password not same']); }
       else if (!termscondition) { setalertactive([true, 'Warning', 'Check Terms and Condition']); }
       else {
-        console.log({ name, username, phone: phoneex + phoneno, picimg: '//koushikchandrasaha.thekoushikdurgas.in/gender/' + gender + '.png', country: countryname, dof: d, gender, email, password })
+        console.log({ name, username, phone: phoneex + phoneno, picimg: '//koushikchandrasaha.thekoushikdurgas.com/gender/' + gender + '.png', country: countryname, dof: d, gender, email, password })
         const d = new Date(year + '-' + month + '-' + day);
         const response = await fetch(`${host}/api/auth/createuser`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', },
-          body: JSON.stringify({ name, username, phone: phoneex + phoneno, picimg: '//koushikchandrasaha.thekoushikdurgas.in/gender/' + gender + '.png', country: countryname, dof: d, gender, email, password })
+          body: JSON.stringify({ name, username, phone: phoneex + phoneno, picimg: '//koushikchandrasaha.thekoushikdurgas.com/gender/' + gender + '.png', country: countryname, dof: d, gender, email, password })
         });
         const json = await response.json();
         console.log(json);
         if (json.success) {
-          Cookies.set('userauthtoken', json.authtoken, { path: '', domain: '.thekoushikdurgas.in' });
-          Cookies.set('useremail', json.email, { path: '', domain: '.thekoushikdurgas.in' });
+          Cookies.set('userauthtoken', json.authtoken, { path: '', domain: '.thekoushikdurgas.com' });
+          Cookies.set('useremail', json.email, { path: '', domain: '.thekoushikdurgas.com' });
           setalertactive([true, 'Success', 'Successfully Resgister in']);
-          window.location.assign(Cookies.get('priviousurl') || 'http://thekoushikdurgas.in/');
+          window.location.assign(Cookies.get('priviousurl') || 'http://thekoushikdurgas.com/');
         } else {
           if(json.errors[0].msg){
             setalertactive([true, 'Warning', json.errors[0].msg]);

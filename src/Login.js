@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Cookies from 'js-cookie';
 
 export default function Login() {
-    const host = "https://thekoushikdurgasserver.herokuapp.com";
+    const host = "https://thekoushikdurgasserver.onrender.com";
     const [alertactive, setalertactive] = useState([false, '', '']);
     const [render, setrender] = useState(true);
     const [logintogglePassword, setlogintogglePassword] = useState(true);
@@ -19,8 +19,8 @@ export default function Login() {
         const response = await fetch(`${host}/api/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify({ email, password }) });
         const json = await response.json();
         if (json['success']) {
-            Cookies.set('userauthtoken', json.authtoken, { path: '', domain: '.thekoushikdurgas.in' });
-            Cookies.set('useremail', json.email, { path: '', domain: '.thekoushikdurgas.in' });
+            Cookies.set('userauthtoken', json.authtoken, { path: '', domain: '.thekoushikdurgas.com' });
+            Cookies.set('useremail', json.email, { path: '', domain: '.thekoushikdurgas.com' });
         }
         return json['success'];
     }
@@ -34,7 +34,7 @@ export default function Login() {
         else {
             const chatloginauth = await chatlogin(email, password);
             if (chatloginauth) {
-                window.location.assign(Cookies.get('priviousurl') || 'http://thekoushikdurgas.in/');
+                window.location.assign(Cookies.get('priviousurl') || 'http://thekoushikdurgas.com/');
                 setalertactive([true, 'Success', 'Successfully login in']);
             } else {
                 setalertactive([true, 'Warning', 'Pl write correct deatails']);
